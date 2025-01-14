@@ -46,11 +46,61 @@ class ParticleSystem {
   }
 }
 
+class SkeletonController {
+  constructor() {
+    this.skeleton = document.querySelector('.skeleton');
+    this.centerX = window.innerWidth / 2;
+    this.centerY = window.innerHeight / 2;
+    this.sensitivity = 0.05; // Adjust this value to change movement sensitivity
+    
+    this.setupEventListeners();
+  }
+
+  setupEventListeners() {
+    // Mouse movement control
+    document.addEventListener('mousemove', (e) => {
+      this.handleMovement(
+        (e.clientX - this.centerX) * this.sensitivity,
+        (e.clientY - this.centerY) * this.sensitivity
+      );
+    });
+
+    // Device orientation control
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', (e) => {
+        if (e.beta && e.gamma) {
+          // Convert device tilt to position offset
+          const xOffset = e.gamma * 2; // Left/Right tilt
+          const yOffset = (e.beta - 45) * 2; // Front/Back tilt
+          this.handleMovement(xOffset, yOffset);
+        }
+      });
+    }
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      this.centerX = window.innerWidth / 2;
+      this.centerY = window.innerHeight / 2;
+    });
+  }
+
+  handleMovement(xOffset, yOffset) {
+    // Calculate new position with boundaries
+    const maxOffset = 100; // Maximum pixels to move from center
+    xOffset = Math.max(Math.min(xOffset, maxOffset), -maxOffset);
+    yOffset = Math.max(Math.min(yOffset, maxOffset), -maxOffset);
+
+    // Apply smooth movement transform
+    this.skeleton.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const scene = document.querySelector('.scene');
   const playButton = document.getElementById('playButton');
   const musicTrack = document.getElementById('musicTrack');
   const particles = new ParticleSystem();
+  const skeletonController = new SkeletonController();
 
   let isPlaying = false;
 

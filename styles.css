@@ -25,6 +25,8 @@ body {
   stroke: #fff;
   stroke-width: 2;
   fill: none;
+  transition: transform 0.1s ease-out;
+  will-change: transform;
 }
 
 .magic-particles {
