@@ -71,7 +71,7 @@ body {
   font-size: 24px;
 }
 
-@keyframes dance {
+@keyframes dance-y {
   0%, 100% { transform: translateY(0); }
   25% { transform: translateY(-20px) rotate(5deg); }
   75% { transform: translateY(-10px) rotate(-5deg); }
@@ -88,7 +88,7 @@ body {
 }
 
 .dancing .skeleton {
-  animation: dance 1s infinite;
+  animation: dance-y 1s infinite;
 }
 
 .dancing .left-arm {

@@ -51,7 +51,9 @@ class SkeletonController {
     this.skeleton = document.querySelector('.skeleton');
     this.centerX = window.innerWidth / 2;
     this.centerY = window.innerHeight / 2;
-    this.sensitivity = 0.05; // Adjust this value to change movement sensitivity
+    this.sensitivity = 0.05;
+    this.currentX = 0;
+    this.currentY = 0;
     
     this.setupEventListeners();
   }
@@ -82,16 +84,41 @@ class SkeletonController {
       this.centerX = window.innerWidth / 2;
       this.centerY = window.innerHeight / 2;
     });
+
+    // Continuously update skeleton position
+    requestAnimationFrame(this.updatePosition.bind(this));
   }
 
   handleMovement(xOffset, yOffset) {
     // Calculate new position with boundaries
-    const maxOffset = 100; // Maximum pixels to move from center
-    xOffset = Math.max(Math.min(xOffset, maxOffset), -maxOffset);
-    yOffset = Math.max(Math.min(yOffset, maxOffset), -maxOffset);
+    const maxOffset = 100;
+    this.currentX = Math.max(Math.min(xOffset, maxOffset), -maxOffset);
+    this.currentY = Math.max(Math.min(yOffset, maxOffset), -maxOffset);
+  }
 
-    // Apply smooth movement transform
-    this.skeleton.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+  updatePosition() {
+    // Get the current dance transform if it exists
+    const computedStyle = window.getComputedStyle(this.skeleton);
+    let danceTransform = '';
+    
+    if (this.skeleton.closest('.scene').classList.contains('dancing')) {
+      // Extract just the translateY and rotate from the dance animation
+      const matrix = computedStyle.transform;
+      if (matrix && matrix !== 'none') {
+        // Keep the Y translation from the dance animation
+        danceTransform = matrix.replace('matrix(', '').replace(')', '').split(',');
+        if (danceTransform.length >= 6) {
+          const ty = danceTransform[5];
+          danceTransform = `translateY(${ty}px)`;
+        }
+      }
+    }
+
+    // Combine the position offset with any existing dance transform
+    this.skeleton.style.transform = `translate(${this.currentX}px, ${this.currentY}px) ${danceTransform}`;
+    
+    // Continue the animation loop
+    requestAnimationFrame(this.updatePosition.bind(this));
   }
 }
 
