@@ -1,0 +1,110 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #1a1a1a;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.scene {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.skeleton {
+  width: 300px;
+  height: 450px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  stroke: #fff;
+  stroke-width: 2;
+  fill: none;
+}
+
+.magic-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  background: radial-gradient(circle, #fff 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.play-button {
+  position: fixed;
+  bottom: 40px;
+  padding: 15px 30px;
+  font-size: 18px;
+  background: #4a154b;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.2s, background 0.2s;
+  z-index: 100;
+}
+
+.play-button:hover {
+  background: #61185f;
+  transform: scale(1.05);
+}
+
+.play-icon {
+  font-size: 24px;
+}
+
+@keyframes dance {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-20px) rotate(5deg); }
+  75% { transform: translateY(-10px) rotate(-5deg); }
+}
+
+@keyframes armWave {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(30deg); }
+}
+
+@keyframes legBop {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-15deg); }
+}
+
+.dancing .skeleton {
+  animation: dance 1s infinite;
+}
+
+.dancing .left-arm {
+  transform-origin: 100px 90px;
+  animation: armWave 0.5s infinite;
+}
+
+.dancing .right-arm {
+  transform-origin: 100px 90px;
+  animation: armWave 0.5s infinite reverse;
+}
+
+.dancing .left-leg {
+  transform-origin: 100px 150px;
+  animation: legBop 0.5s infinite alternate;
+}
+
+.dancing .right-leg {
+  transform-origin: 100px 150px;
+  animation: legBop 0.5s infinite alternate-reverse;
+}

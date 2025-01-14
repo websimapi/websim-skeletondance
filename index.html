@@ -1,0 +1,53 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skeleton Dance Party</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="scene">
+    <div class="magic-particles"></div>
+    <svg class="skeleton" viewBox="0 0 200 300">
+      <!-- Head -->
+      <circle class="skull" cx="100" cy="50" r="20" />
+      
+      <!-- Body -->
+      <path class="spine" d="M100 70 L100 150" />
+      <path class="ribs" d="M70 90 H130 M70 110 H130 M70 130 H130" />
+      
+      <!-- Arms -->
+      <g class="left-arm">
+        <path d="M100 90 L60 120" />
+        <path d="M60 120 L40 160" />
+      </g>
+      <g class="right-arm">
+        <path d="M100 90 L140 120" />
+        <path d="M140 120 L160 160" />
+      </g>
+      
+      <!-- Legs -->
+      <g class="left-leg">
+        <path d="M100 150 L80 200" />
+        <path d="M80 200 L70 250" />
+      </g>
+      <g class="right-leg">
+        <path d="M100 150 L120 200" />
+        <path d="M120 200 L130 250" />
+      </g>
+    </svg>
+  </div>
+
+  <button id="playButton" class="play-button">
+    <span class="play-icon">▶</span>
+    Start the Dance!
+  </button>
+
+  <audio id="musicTrack" loop>
+    <source src="/Pixelated Paths - Track 2 - Sonauto.wav" type="audio/wav">
+  </audio>
+
+  <script type="module" src="main.js"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
